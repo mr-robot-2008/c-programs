@@ -1,0 +1,20 @@
+#include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(int argc, char** argv) {
+    int max = 0;
+    for (int i = 1; i < argc; i++) {
+        int a= atoi(argv[i]);
+        if (a > max) {
+            max = a;
+        }
+        if (!fork()) {
+            usleep(a*1000);
+            printf("%d\n", a);
+            return 0;
+        }
+    }
+    usleep(max*1000+1000);
+    return 0;
+};
